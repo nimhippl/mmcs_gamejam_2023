@@ -14,4 +14,12 @@ class Color
   def serialize
     {r: r, g: g, b: b, a: a}
   end
+
+  def self.black
+    Color.new(0, 0, 0)
+  end
+
+  def self.white
+    Color.new(255, 255, 255)
+  end
 end
