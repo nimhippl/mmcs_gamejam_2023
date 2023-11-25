@@ -5,6 +5,7 @@ require "app/scene_manager"
 require "app/ui_kit/button"
 require "app/ui_kit/color"
 require "app/ui_kit/primitives"
+require "app/ui_kit/draggable"
 
 require "app/solitaire/deck_manager"
 require "app/solitaire/card"

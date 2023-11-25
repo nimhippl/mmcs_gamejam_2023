@@ -14,7 +14,7 @@ class SolitaireScene < Scene
   SPACE_BETWEEN_CARDS = 20
 
   def initialize args
-    @args = args
+    super(args)
     setup_ui
     setup_board
     @card_under_mouse = nil
@@ -89,58 +89,21 @@ class SolitaireScene < Scene
   end
 
   def process_input
+    @draggables = @hand + @board
     super
-    process_cards
   end
 
-  def process_cards
-    if mouse_leave_card?
-      on_mouse_leave_card
-      return
-    end
+  def draggable_dropped(draggable)
+    super(draggable)
 
-    unless @card_under_mouse
-      cards = @hand + @board
-      @card_under_mouse = cards.find { |card| args.geometry.intersect_rect?(args.inputs.mouse, card.serialize) }
-    end
-
-    return if @card_under_mouse.nil?
-
-    process_card_under_mouse
-  end
-
-  def mouse_leave_card?
-    !@dragging_card && !@card_under_mouse.nil? && !args.inputs.mouse.intersect_rect?(@card_under_mouse.serialize)
-  end
-
-  def on_mouse_leave_card
-    @card_under_mouse.a = 255
-    @card_under_mouse = nil
-  end
-
-  def process_card_under_mouse
-    @card_under_mouse.a = 200
-
-    if args.inputs.mouse.click
-      @dragging_card = true
-      args.state.mouse_point_inside_card = {
-        x: args.inputs.mouse.x - @card_under_mouse.x,
-        y: args.inputs.mouse.y - @card_under_mouse.y,
-      }
-    elsif args.inputs.mouse.held
-      @card_under_mouse.x = args.inputs.mouse.x - args.state.mouse_point_inside_card.x
-      @card_under_mouse.y = args.inputs.mouse.y - args.state.mouse_point_inside_card.y
-    elsif args.inputs.mouse.up
-      @dragging_card = false
-      unless args.geometry.intersect_rect?(@card_under_mouse.serialize, @deck_area)
-        if @hand.include? @card_under_mouse
-          @hand.delete @card_under_mouse
-          @board << @card_under_mouse
-        end
+    unless args.geometry.intersect_rect?(draggable.serialize, @deck_area)
+      if @hand.include? draggable
+        @hand.delete draggable
+        @board << draggable
       end
-
-      compute_card_positions_in_hand
     end
+
+    compute_card_positions_in_hand
   end
 
   def tick args
