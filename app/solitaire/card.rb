@@ -29,12 +29,7 @@ class Card < Sprite
     CARDS_FOLDER + 'card back/cardBackRed.png'
   end
 
-  def move_to(x, y)
-    @x = x
-    @y = y
-  end
-
-  def rect
-    [x - CARD_WIDTH / 2, y - CARD_HEIGHT / 2, CARD_WIDTH, CARD_HEIGHT]
-  end
+  # def rect
+  #   [x - CARD_WIDTH / 2, y - CARD_HEIGHT / 2, CARD_WIDTH, CARD_HEIGHT]
+  # end
 end

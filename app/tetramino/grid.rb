@@ -86,5 +86,12 @@ module Tetramino
 
       cell.render args
     end
+
+    # TODO: complete this
+    public def intersect_with_figure?(figure)
+      mask = figure.grid_mask
+
+      return true
+    end
   end
 end

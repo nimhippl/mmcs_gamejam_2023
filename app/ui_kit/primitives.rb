@@ -1,7 +1,9 @@
+$gtk.reset
+
 class Primitive
   attr_accessor :x, :y, :w, :h, :anchor_x, :anchor_y, :r, :g, :b, :a, :blendmode_enum
 
-  def initialize(x: nil, y: nil, w: nil, h: nil, color: Color.black, anchor_x: 0.5, anchor_y: 0.5, blendmode_enum: 0)
+  def initialize(x: nil, y: nil, w: nil, h: nil, color: Color.black, anchor_x: 0.5, anchor_y: 0.5, blendmode_enum: 1)
     self.x = x
     self.y = y
     self.w = w
