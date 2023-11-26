@@ -19,14 +19,7 @@ class Primitive
   end
 
   def render args
-    case self.primitive_marker
-    when :solid
-      args.outputs.solids << self
-    when :border
-      args.outputs.borders << self
-    when :sprite
-      args.outputs.sprites << self
-    end
+    args.outputs.primitives << self
   end
 
   def serialize
